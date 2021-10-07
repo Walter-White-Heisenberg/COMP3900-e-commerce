@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script type=text/javascript src="{{url_for('static', filename='js/script.js') }}"></script>
+    <style>
+        body {
+            font-family: Arial;
+            font-size: 17px;
+            padding: 8px;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        .row {
+            display: -ms-flexbox;
+            /* IE10 */
+            display: flex;
+            -ms-flex-wrap: wrap;
+            /* IE10 */
+            flex-wrap: wrap;
+            margin: 0 -16px;
+        }
+
+        .col-25 {
+            -ms-flex: 25%;
+            /* IE10 */
+            flex: 25%;
+        }
+
+        .col-50 {
+            -ms-flex: 50%;
+            /* IE10 */
+            flex: 50%;
+        }
+
+        .col-75 {
+            -ms-flex: 75%;
+            /* IE10 */
+            flex: 75%;
+        }
+
+        .col-25,
+        .col-50,
+        .col-75 {
+            padding: 0 16px;
+        }
+
+        .container {
+            background-color: #f2f2f2;
+            padding: 5px 20px 15px 20px;
+            border: 1px solid lightgrey;
+            border-radius: 3px;
+        }
+
+        input[type=text] {
+            width: 100%;
+            margin-bottom: 20px;
+            padding: 12px;
+            border: 1px solid #ccc;
+            border-radius: 3px;
+        }
+
+        label {
+            margin-bottom: 10px;
+            display: block;
+        }
+
+        .icon-container {
+            margin-bottom: 20px;
+            padding: 7px 0;
+            font-size: 24px;
+        }
+
+        .btn {
+            background-color: #4CAF50;
+            color: white;
+            padding: 12px;
+            margin: 10px 0;
+            border: none;
+            width: 100%;
+            border-radius: 3px;
+            cursor: pointer;
+            font-size: 17px;
+        }
+
+        .btn:hover {
+            background-color: #45a049;
+        }
+
+        a {
+            color: #2196F3;
+        }
+
+        hr {
+            border: 1px solid lightgrey;
+        }
+
+        span.price {
+            float: right;
+            color: grey;
+        }
+
+        /* Responsive layout - when the screen is less than 800px wide, make the two columns stack on top of each other instead of next to each other (also change the direction - make the "cart" column go on top) */
+        @media (max-width: 800px) {
+            .row {
+                flex-direction: column-reverse;
+            }
+
+            .col-25 {
+                margin-bottom: 20px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <h2>Checkout</h2>
+    <div class="row">
+        <div class="col-75">
+            <div class="container">
+                <form action="/action_page.php">
+
+                    <div class="row">
+                        <div class="col-50">
+                            <h3>Billing Address</h3>
+                            <label for="fname"><i class="fa fa-user"></i> Full Name</label>
+                            <input type="text" id="fname" name="firstname" placeholder="Yan Yan">
+                            <label for="email"><i class="fa fa-envelope"></i> Email</label>
+                            <input type="text" id="email" name="email" placeholder="fivebluepetals@example.com">
+                            <label for="email"><i class="fa fa-mobile"></i> Phone</label>
+                            <input type="text" id="mobile" name="moble" placeholder="0406111111">
+                            <label for="adr"><i class="fa fa-address-card-o"></i> Address</label>
+                            <input type="text" id="adr" name="address" placeholder="21 Barker Street">
+                            <label for="city"><i class="fa fa-institution"></i> City</label>
+                            <input type="text" id="city" name="city" placeholder="Kingsford">
+
+                            <div class="row">
+                                <div class="col-50">
+                                    <label for="state">State</label>
+                                    <input type="text" id="state" name="state" placeholder="NSW">
+                                </div>
+                                <div class="col-50">
+                                    <label for="post_code">Post code</label>
+                                    <input type="text" id="post_code" name="post_code" placeholder="2000">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-50 shipping" style="display: none;">
+                            <h3>Shipping Address</h3>
+                            <label for="fname"><i class="fa fa-user"></i> Full Name</label>
+                            <input type="text" id="sname" name="firstname" placeholder="Yan Yan">
+                            <label for="email"><i class="fa fa-envelope"></i> Email</label>
+                            <input type="text" id="semail" name="email" placeholder="fivebluepetals@example.com">
+                            <label for="email"><i class="fa fa-mobile"></i> Phone</label>
+                            <input type="text" id="smobile" name="moble" placeholder="0406111111">
+                            <label for="adr"><i class="fa fa-address-card-o"></i> Address</label>
+                            <input type="text" id="sadr" name="address" placeholder="21 Barker Street">
+                            <label for="city"><i class="fa fa-institution"></i> City</label>
+                            <input type="text" id="scity" name="city" placeholder="Kingsford">
+
+                            <div class="row">
+                                <div class="col-50">
+                                    <label for="sstate">State</label>
+                                    <input type="text" id="sstate" name="state" placeholder="NSW">
+                                </div>
+                                <div class="col-50">
+                                    <label for="spost_code">Post code</label>
+                                    <input type="text" id="spost_code" name="post_code" placeholder="2000">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-50">
+                            <h3>Payment</h3>
+                            <label for="fname">Accepted Cards</label>
+                            <div class="icon-container">
+                                <i class="fa fa-cc-visa" style="color:navy;"></i>
+                                <i class="fa fa-cc-amex" style="color:blue;"></i>
+                                <i class="fa fa-cc-mastercard" style="color:red;"></i>
+                                <i class="fa fa-cc-discover" style="color:orange;"></i>
+                            </div>
+                            <label for="cname">Name on Card</label>
+                            <input type="text" id="cname" name="cardname" placeholder="Jason Li">
+                            <label for="ccnum">Credit card number</label>
+                            <input type="text" id="ccnum" name="cardnumber" placeholder="1111-2222-3333-4444">
+                            <label for="expmonth">Exp Month</label>
+                            <input type="text" id="expmonth" name="expmonth" placeholder="01">
+                            <div class="row">
+                                <div class="col-50">
+                                    <label for="expyear">Exp Year</label>
+                                    <input type="text" id="expyear" name="expyear" placeholder="2021">
+                                </div>
+                                <div class="col-50">
+                                    <label for="cvv">CVV</label>
+                                    <input type="text" id="cvv" name="cvv" placeholder="123">
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="col-50">
+                        <h3>Comment</h3>
+                        <input type="text" id="comment" name="comment">
+
+                    </div>
+                    <label>
+                        <input type="checkbox" checked="checked" name="sameadr" onchange="displayShip(this)"
+                            id="checkbox"> Shipping address same as billing
+                    </label>
+                    <input type="button" value="Continue to checkout" class="btn" onclick="processPayment()">
+                </form>
+            </div>
+        </div>
+
+        <div class="col-25">
+            <div class="container cart">
+                <h4>Cart <span class="price" style="color:black"><i class="fa fa-shopping-cart"></i></span>
+                </h4>
+            </div>
+        </div>
+    </div>
+
+</body>
+
+</html>
+
+<script>
+    load();
+    function sendRequest(url, data, type) {
+        var request = new XMLHttpRequest();
+        if (type == "POST") {
+            request.open(type, url, false);
+            request.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+            request.send(data);
+        } else if (type == "GET") {
+            request.open(type, url + "?" + data, false);
+            request.send();
+        }
+        var response = request.response;
+        return response;
+    }
+
+    function addCookies(key, value) {
+        document.cookie = key + "=" + value + ";"
+        console.log(document.cookie);
+    }
+
+    function getCookies(key) {
+        var name = key + "=";
+        var decodedCookie = decodeURIComponent(document.cookie);
+        var value = decodedCookie.split(';');
+        for (var i = 0; i < value.length; i++) {
+            var c = value[i];
+            while (c.charAt(0) == ' ') {
+                c = c.substring(1);
+            }
+            if (c.indexOf(name) == 0) {
+                return c.substring(name.length, c.length);
+            }
+        }
+        return "";
+    }
+
+    function load() {
+        var product_ids = getCookies("productId").split(',');
+        var quantity = getCookies("productQuantity").split(',');
+        var area = document.getElementsByClassName("cart")[0];
+        var products_str = product_ids.join(";").toString();
+        var response = JSON.parse(sendRequest("/cart_products", "productIds=" + products_str, "GET"));
+        var products = response['products'];
+        var total = 0;
+        for (let index = 0; index < products.length; index++) {
+            var product = products[index];
+            var quantity = quantity[index];
+            console.log(product);
+            var price = parseFloat(product['price']) - parseFloat(product['discount'])
+            total += price;
+            area.innerHTML += '<p class="product" productId="' + product['product_ID'] + '"><a href="#">' + product['title'] + '</a> <span class="price">' + price.toFixed(2) + '</span></p>'
+        }
+        total += 10;
+        area.innerHTML += "<hr>";
+        area.innerHTML += '<p>Total <span class="price" style="color:black"><b>$' + total.toFixed() + '</b></span></p>';
+
+    }
+    function displayShip(element) {
+        var checked = element.checked;
+        var area = document.getElementsByClassName("shipping")[0];
+        if (checked) {
+            area.style.display = "none";
+        } else {
+            area.style.display = "block";
+        }
+    }
+
+    function processPayment() {
+        var token = getCookies("token");
+        var name = document.getElementById("fname").value;
+        var email = document.getElementById("email").value;
+        var phone = document.getElementById("mobile").value;
+        var address = document.getElementById("adr").value;
+        var city = document.getElementById("city").value;
+        var state = document.getElementById("state").value;
+        var postcode = document.getElementById("post_code").value;
+        var billaddress = address + " " + city + " " + state + " " + postcode;
+        var shipaddress = billaddress;
+        var bill = {
+            "name": name,
+            "email": email,
+            "phone": phone,
+            "address": billaddress
+        }
+        var ship = bill;
+
+
+        var cardName = document.getElementById("cname").value;
+        var cardnumber = document.getElementById("ccnum").value;
+        var expmonth = document.getElementById("expmonth").value;
+        var expyear = document.getElementById("expyear").value;
+        var cvv = document.getElementById("cvv").value;
+        var card = {
+            "cardName": cardName,
+            "cardnumber": cardnumber,
+            "expire": expmonth + "/" + expyear,
+            "cvv": cvv,
+
+        }
+
+        var sameAddress = document.getElementById("checkbox").checked;
+        if (sameAddress == false) {
+            var name = document.getElementById("sname").value;
+            var email = document.getElementById("semail").value;
+            var address = document.getElementById("sadr").value;
+            var city = document.getElementById("scity").value;
+            var state = document.getElementById("sstate").value;
+            var postcode = document.getElementById("spost_code").value;
+            var phone = document.getElementById("smobile").value;
+            var shipaddress = address + " " + city + " " + state + " " + postcode;
+            ship = {
+                "name": name,
+                "email": email,
+                "phone": phone,
+                "address": shipaddress
+            }
+        }
+
+        var porducts = document.getElementsByClassName("product");
+        var productStr = "";
+        var quantity = getCookies("productQuantity").split(',');
+        for (let index = 0; index < porducts.length; index++) {
+            const element = porducts[index];
+            productStr += element.getAttribute("productId") + "?" + quantity[index] + ",";
+        }
+        
+        var comment = document.getElementById("comment").value;
+        var sendData = {
+            "token": token,
+            "shipAddress": ship,
+            "billAddress": bill,
+            "products": productStr,
+            "card": card,
+            "comment": comment
+        }
+        console.log(sendData);
+
+        var request = new XMLHttpRequest();
+        request.open("POST", "/processPayment", false);
+        request.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+        request.send(JSON.stringify(sendData));
+        
+        var resposne = JSON.parse(request.response);
+        if (resposne['result']=="ERROR"){
+            alert(resposne['reason']);
+        } else {
+            alert("Success");
+            window.location.href="/";
+            addCookies("productQuantity","");
+            addCookies("productId","");
+        }
+    }
+</script>

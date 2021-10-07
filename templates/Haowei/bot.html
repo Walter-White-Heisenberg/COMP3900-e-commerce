@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ChatBot</title>
+</head>
+
+<body>
+    <div>
+        <button id="back" onclick="backHomePage()">Back</button>
+    </div>
+    <div class="text_area">
+        <div class="message_area">
+            <div class="message host">
+                <img src="https://i.pinimg.com/564x/5f/df/91/5fdf914e80e58a43f052a219343e60b1.jpg" alt="">
+
+                <span
+                    class="text">Hi, I'm chatbot for Blue five petal, my job is to help you get the information of our store, products and ----happiness.</span>
+            </div>
+            <div class="message host">
+                <img src="https://i.pinimg.com/564x/5f/df/91/5fdf914e80e58a43f052a219343e60b1.jpg" alt="">
+                <span class="text">Type 0 anytime to restart the conversation again from beginning <br>Type 1 if you
+                    want to get BFP recommended product <br>Type 2 if you wanna search a certain product <br>Type 3 if
+                    you want to tell us about person who you want to buy flower for and we can tell you which are best
+                    for him/her <br>Type 4 to know user detail</span>
+            </div>
+        </div>
+
+
+        <div class="input_area">
+            <input type="text" name="text" id="input">
+            <button id="send" onclick="sendMessage()">Send</button>
+        </div>
+    </div>
+
+</body>
+
+</html>
+
+<style>
+    body {
+        width: 100%;
+        margin: 0;
+        background: silver;
+    }
+
+    .products_wrapper {
+        width: 100%;
+        box-sizing: border-box;
+        padding: 5%;
+        background-color: #859cc5;
+        border-radius: 30px;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 2%;
+    }
+
+    .product {
+        width: 18%;
+        text-align: center;
+        background-color: rgba(240, 255, 255, 0.76);
+        box-sizing: border-box;
+        margin: 0 0 3px 0;
+        padding: 1%;
+    }
+
+    .product>img {
+        width: 100%;
+
+    }
+
+    .product>div {
+        font-size: 11px;
+    }
+
+    .text_area {
+        width: 60%;
+        min-width: 600px;
+        height: 90vh;
+        margin: 5vh auto;
+        background: white;
+    }
+
+    .message_area {
+        width: 100%;
+        height: 90%;
+        overflow-y: scroll;
+        box-sizing: border-box;
+        padding: 5%;
+    }
+
+    .message {
+        width: 100%;
+        box-sizing: border-box;
+        padding: 2%;
+        color: white;
+        border-radius: 30px;
+        margin: 0 0 20px 0;
+        display: flex;
+        gap: 3%;
+    }
+
+    .host {
+        background: #859cc5;
+    }
+
+    .client {
+        background: #5ff0bf;
+        justify-content: flex-end;
+    }
+
+    .message>img {
+        width: 60px;
+        height: 60px;
+        border-radius: 30%;
+    }
+
+    .message>span {
+        line-height: 100%;
+        align-self: center;
+        display: block;
+        word-break: break-all;
+        white-space: normal;
+    }
+
+    .input_area {
+        width: 100%;
+        height: 10%;
+        background: tomato;
+    }
+
+    .input_area>input {
+        width: 80%;
+        height: 100%;
+        box-sizing: border-box;
+        font-size: 2em;
+    }
+
+    .input_area>button {
+        width: 19%;
+        height: 100%;
+        box-sizing: border-box;
+        font-size: 2em;
+        background-color: tomato;
+        color: white;
+        outline: none;
+        border: none;
+        cursor: pointer;
+        transition: 2s;
+    }
+
+    .input_area>button:hover {
+        background-color: rgb(226, 79, 52);
+        transition: 2s;
+    }
+
+    .input_area>button:focus {
+        background-color: rgb(226, 101, 52);
+    }
+
+    .title {
+        font-size: 13px;
+        text-transform: capitalize;
+        font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+        margin: 10px 0;
+    }
+
+    .price {
+        font-size: 22px;
+        text-transform: capitalize;
+        font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    }
+
+    .link {
+        font-size: 22px;
+        text-transform: capitalize;
+        font-style: italic;
+        font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+        cursor: pointer;
+    }
+
+    .none {
+        display: none;
+    }
+
+    .product>img {
+        cursor: pointer;
+    }
+
+    .link>a {
+        text-decoration: none;
+        color: black;
+    }
+
+    button#back {
+        width: 120px;
+        position: fixed;
+        padding: 10px;
+        top: 20px;
+        left: 10px;
+        display: block;
+        cursor: pointer;
+        border-radius: 20px;
+        outline: none;
+        border: none;
+        background-color: #5ff0bf;
+        color: white;
+
+    }
+</style>
+
+<script>
+    var input = document.getElementById("input");
+    function addCookies(key, value) {
+        document.cookie = key + "=" + value + ";"
+        console.log(document.cookie);
+    }
+
+    function backHomePage() {
+        window.location.href="/";
+    }
+
+    function getCookies(key) {
+        var name = key + "=";
+        var decodedCookie = decodeURIComponent(document.cookie);
+        var value = decodedCookie.split(';');
+        for (var i = 0; i < value.length; i++) {
+            var c = value[i];
+            while (c.charAt(0) == ' ') {
+                c = c.substring(1);
+            }
+            if (c.indexOf(name) == 0) {
+                return c.substring(name.length, c.length);
+            }
+        }
+        return "";
+    }
+
+    input.addEventListener("keyup", function (event) {
+        if (event.keyCode === 13) {
+            sendMessage();
+        }
+    })
+    function sendMessage() {
+        var input = document.getElementById("input")
+        var msg = input.value;
+        var add = '<div class="message client"><span class="text">' + msg + '</span><img src="https://i.pinimg.com/564x/ce/10/81/ce10818cef2696f7445bd0673c51d1ba.jpg" alt=""></div>'
+        var display_area = document.getElementsByClassName("message_area")[0];
+        display_area.innerHTML += add;
+        input.value = "";
+        var sendData = {
+            "token": getCookies("token"),
+            "query": msg
+        }
+        var request = new XMLHttpRequest();
+        request.open("POST", "/chatBotQuery", false);
+        request.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+        request.send(JSON.stringify(sendData));
+        var resposne = JSON.parse(request.response);
+        var products = resposne['products'];
+        add = '<div class="message host"><img src="https://i.pinimg.com/564x/5f/df/91/5fdf914e80e58a43f052a219343e60b1.jpg" alt=""><span class="text">' + resposne['response'] + '</span></div>';
+        display_area.innerHTML += add;
+        if (products.length > 0) {
+            add = '<div class="products_wrapper">';
+            for (let index = 0; index < products.length; index++) {
+                var product = products[index];
+                add += '<div class="product">'
+                add += '<img src="' + product['image'][0] + '" onclick="display(this)">';
+                add += '<div class="title" >' + product['title'] + '</div>';
+                add += '<div class="price none" id="price" >$' + parseInt(product['price']).toFixed(2) + '</div>';
+                add += '<div class="link none" id="link" ><a href="/product_detail?productId=' + product['product_ID'] + '" target="_blank"">more</a></div>';
+                add += '</div>';
+            }
+            display_area.innerHTML += add;
+        }
+    }
+
+    function display(element) {
+        var parent = element.parentElement.childNodes;
+        for (let index = 0; index < parent.length; index++) {
+            const element = parent[index];
+            if (index >= 1) {
+                element.classList.remove("none");
+            }
+        }
+        var price = parent.getElementById("price");
+        var link = parent.getElementById("link");
+
+    }
+</script>
